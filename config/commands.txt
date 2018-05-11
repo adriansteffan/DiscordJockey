@@ -1,0 +1,25 @@
+commands:
+!connect
+!disconnect
+!memes
+!yt *link* *1 *2 *3
+!random
+!*
+!pause
+!resume
+!skip
+!prev
+!stop
+!volume *volume* (standard : 10)
+!memevolume *volume* (standard : 4)
+!joinmeme on/off
+!postmeme
+!uploadinfo
+!upload meme *name*
+!log *day*-*month*-*year*
+
+
+*1 if the player is already playing, the song is added to the queue
+*2 a link to a playlist will play all of the songs in order
+*3 other sources are supported (e.g radio.de), visit https://rg3.github.io/youtube-dl/supportedsites.html for a full list
+<http://www.radio.de/genre/>
