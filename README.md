@@ -9,3 +9,5 @@ upgrade aiohttp
 
 for linux:
 apt install libffi-dev libnacl-dev python3-dev
+
+https://discordapp.com/oauth2/authorize?client_id=444808632706662400&scope=bot
