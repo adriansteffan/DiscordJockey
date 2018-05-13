@@ -128,6 +128,7 @@ async def _upload(ctx):
 ### Change Voice Channel
 ###config file
 ### hide ffmpeg
-### spotify 
+### spotify
+## Song info
     
 bot.run(token)
