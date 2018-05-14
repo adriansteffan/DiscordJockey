@@ -9,15 +9,18 @@ class Music:
         self.bot = bot
 
     @commands.command(name='yt')
-    async def _play_youtube(self, ctx, youtube_link):
-
+    async def _play_youtube(self, ctx, *, track: str):
+        print(track)
         current_guild = get_guild(self.bot, ctx.message)
 
         if current_guild is None:
             await send_message(ctx, NO_GUILD_MESSAGE)
             return
         audiocontroller = guild_to_audiocontroller[current_guild]
-        await audiocontroller.add_song(youtube_link)
+
+        if track.isspace() or not track:
+            return
+        await audiocontroller.add_song(track)
 
     @commands.command(name='pause')
     async def _pause(self, ctx):
@@ -54,7 +57,7 @@ class Music:
         if current_guild is None:
             await send_message(ctx, NO_GUILD_MESSAGE)
             return
-        guild_to_audiocontroller[current_guild].prev_song()
+        await guild_to_audiocontroller[current_guild].prev_song()
 
     @commands.command(name='resume')
     async def _resume(self, ctx):
@@ -73,6 +76,38 @@ class Music:
 
         guild_to_audiocontroller[current_guild].volume = volume
 
+    @commands.command(name='spotify')
+    async def _spotify(self, ctx,  *, nick_name=None):
+        current_guild = get_guild(self.bot, ctx.message)
+        if current_guild is None:
+            await send_message(ctx, NO_GUILD_MESSAGE)
+            return
+
+        spotify_member = None
+        if not nick_name or nick_name.isspace():
+            spotify_member = ctx.message.author
+
+        else:
+            for channel in current_guild.voice_channels:
+                for member in channel.members:
+                    if member.nick == nick_name or (member.nick is None and member.name == nick_name):
+                        spotify_member = member
+
+        if spotify_member is None:
+            return
+        if spotify_member.activity.name != "Spotify":
+            return
+        song = spotify_member.activity.title + " " + spotify_member.activity.artist
+
+        await guild_to_audiocontroller[current_guild].add_song(song)
+
+    @commands.command(name='songinfo')
+    async def _songinfo(self, ctx):
+        current_guild = get_guild(self.bot, ctx.message)
+        if current_guild is None:
+            await send_message(ctx, NO_GUILD_MESSAGE)
+            return
+        song_info = guild_to_audiocontroller[current_guild].current_songinfo
 
 def setup(bot):
     bot.add_cog(Music(bot))

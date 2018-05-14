@@ -1,11 +1,17 @@
+import urllib
+import string
+
 import discord
 import youtube_dl
+from bs4 import BeautifulSoup
 
 from config.config import *
 from musicbot.playlist import Playlist
+from musicbot.songinfo import Songinfo
 
 
 def playing_string(title):
+    filter(lambda x: x in set(string.printable), title)
     title_parts = title.split(" ")
     short_title = ""
 
@@ -28,7 +34,7 @@ class AudioController:
         self.bot = bot
         self._volume = volume
         self.playlist = Playlist()
-        self.current_songinfo = None
+        self.current_songinfo = Songinfo()
         self.guild = guild
 
     @property
@@ -54,9 +60,30 @@ class AudioController:
         self.bot.loop.create_task(coro)
 
     async def add_song(self, track):
-        self.playlist.add(track)
+        if not ("watch?v=" in track):
+            link = self.convert_to_youtube_link('"'+track+'"')
+        if link is None:
+            link = self.convert_to_youtube_link(track)
+        if link is None:
+            return
+        self.playlist.add(link)
         if len(self.playlist.playque) == 1:
-            await self.play_youtube(track)
+            await self.play_youtube(link)
+
+    def convert_to_youtube_link(self, title):
+
+        filter(lambda x: x in set(string.printable), title)
+
+        query = urllib.parse.quote(title)
+        url = "https://www.youtube.com/results?search_query=" + query
+        response = urllib.request.urlopen(url)
+        html = response.read()
+        soup = BeautifulSoup(html, "html.parser")
+        results = soup.findAll(attrs={'class': 'yt-uix-tile-link'})
+        if len(results) != 0:
+            return 'https://www.youtube.com' + results[0]['href']
+        else:
+            return None
 
     async def play_youtube(self, youtube_link):
         try:
@@ -68,6 +95,7 @@ class AudioController:
                 extracted_info = downloader.extract_info(youtube_link, download=False)
             except:
                 self.next_song(None)
+
 
         await self.guild.me.edit(nick=playing_string(extracted_info.get('title')))
         self.guild.voice_client.play(discord.FFmpegPCMAudio(extracted_info['url']), after=lambda e: self.next_song(e))
@@ -83,9 +111,17 @@ class AudioController:
         self.guild.voice_client.stop()
         await self.guild.me.edit(nick=DEFAULT_NICKNAME)
 
-    def prev_song(self):
+    async def prev_song(self):
         if len(self.playlist.playhistory) == 0:
             return None
-        self.playlist.prev()
-        self.playlist.prev()
-        self.guild.voice_client.stop()
+        if self.guild.voice_client is None or (
+                not self.guild.voice_client.is_paused() and not self.guild.voice_client.is_playing()):
+            prev_song = self.playlist.prev()
+            if prev_song == "Dummy":
+                self.playlist.next()
+                return None
+            await self.play_youtube(prev_song)
+        else:
+            self.playlist.prev()
+            self.playlist.prev()
+            self.guild.voice_client.stop()

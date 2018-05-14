@@ -12,7 +12,9 @@ class Playlist:
         self.playque.append(track)
 
     def next(self):
-        self.playhistory.append(self.playque.popleft())
+        song_played = self.playque.popleft()
+        if song_played != "Dummy":
+            self.playhistory.append(song_played)
 
         if len(self.playque) == 0:
             return None

@@ -7,23 +7,18 @@ from musicbot.utils import guild_to_audiocontroller
 
 """
 Backlog:
-
-bugs:
-    prev
     
 music integration:
-    Spotify
     Song info
     playlist parse
 
-cleanup:
-    hide ffmpeg
-
 documentation:
-    logging
     readme
     help
 
+maybe:
+    logging
+    hide ffmpeg
 
 """
 
