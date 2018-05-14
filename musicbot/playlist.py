@@ -1,12 +1,25 @@
 from collections import deque
 
+from config.config import *
+
 
 class Playlist:
-    MAX_HISTORY_LENGTH = 10
 
     def __init__(self):
+        # Stores the ytlinks os the songs in queue and the ones already played
         self.playque = deque()
         self.playhistory = deque()
+
+        # A seperate history that remembers the names of the tracks that were played
+        self.trackname_history = deque()
+
+    def __len__(self):
+        return len(self.playque)
+
+    def add_name(self, trackname):
+        self.trackname_history.append(trackname)
+        if len(self.trackname_history) > MAX_TRACKNAME_HISTORY_LENGTH:
+                self.trackname_history.popleft()
 
     def add(self, track):
         self.playque.append(track)
@@ -15,7 +28,8 @@ class Playlist:
         song_played = self.playque.popleft()
         if song_played != "Dummy":
             self.playhistory.append(song_played)
-
+            if len(self.playhistory) > MAX_HISTORY_LENGTH:
+                self.playhistory.popleft()
         if len(self.playque) == 0:
             return None
         return self.playque[0]

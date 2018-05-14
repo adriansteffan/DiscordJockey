@@ -1,5 +1,5 @@
-import urllib
 import string
+import urllib
 
 import discord
 import youtube_dl
@@ -34,7 +34,7 @@ class AudioController:
         self.bot = bot
         self._volume = volume
         self.playlist = Playlist()
-        self.current_songinfo = Songinfo()
+        self.current_songinfo = None
         self.guild = guild
 
     @property
@@ -49,7 +49,14 @@ class AudioController:
         except:
             pass
 
+    def track_history(self):
+        history_string = INFO_HISTORY_TITLE
+        for trackname in self.playlist.trackname_history:
+            history_string += "\n" + trackname
+        return history_string
+
     def next_song(self, error):
+        self.current_songinfo = None
         next_song = self.playlist.next()
 
         if next_song is None:
@@ -59,13 +66,28 @@ class AudioController:
 
         self.bot.loop.create_task(coro)
 
-    async def add_song(self, track):
-        if not ("watch?v=" in track):
-            link = self.convert_to_youtube_link('"'+track+'"')
-        if link is None:
-            link = self.convert_to_youtube_link(track)
-        if link is None:
+    async def add_youtube(self, link):
+        if not ("playlist?list=" in link):
+            await self.add_song(link)
             return
+
+        response = urllib.request.urlopen(link)
+        soup = BeautifulSoup(response.read(), "html.parser")
+        res = soup.find_all('a', {'class': 'pl-video-title-link'})
+        for l in res:
+            await self.add_song('https://www.youtube.com' + l.get("href"))
+
+    async def add_song(self, track):
+
+        link = None
+        if not ("watch?v=" in track):
+            link = self.convert_to_youtube_link('"' + track + '"')
+            if link is None:
+                link = self.convert_to_youtube_link(track)
+                if link is None:
+                    return
+        else:
+            link = track
         self.playlist.add(link)
         if len(self.playlist.playque) == 1:
             await self.play_youtube(link)
@@ -86,6 +108,7 @@ class AudioController:
             return None
 
     async def play_youtube(self, youtube_link):
+        youtube_link = youtube_link.split("&list=")[0]
         try:
             downloader = youtube_dl.YoutubeDL({'format': 'bestaudio', 'title': True})
             extracted_info = downloader.extract_info(youtube_link, download=False)
@@ -95,9 +118,12 @@ class AudioController:
                 extracted_info = downloader.extract_info(youtube_link, download=False)
             except:
                 self.next_song(None)
-
-
+        self.current_songinfo = Songinfo(extracted_info.get('uploader'), extracted_info.get('creator'),
+                                         extracted_info.get('title'), extracted_info.get('duration'),
+                                         extracted_info.get('like_count'), extracted_info.get('dislike_count'),
+                                         extracted_info.get('webpage_url'))
         await self.guild.me.edit(nick=playing_string(extracted_info.get('title')))
+        self.playlist.add_name(extracted_info.get('title'))
         self.guild.voice_client.play(discord.FFmpegPCMAudio(extracted_info['url']), after=lambda e: self.next_song(e))
         self.guild.voice_client.source = discord.PCMVolumeTransformer(self.guild.voice_client.source)
         self.guild.voice_client.source.volume = float(self.volume) / 100.0

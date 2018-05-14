@@ -7,10 +7,6 @@ from musicbot.utils import guild_to_audiocontroller
 
 """
 Backlog:
-    
-music integration:
-    Song info
-    playlist parse
 
 documentation:
     readme
