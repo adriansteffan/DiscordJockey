@@ -38,7 +38,6 @@ The bot should join you server automatically. If nothing happens, just try resta
 ## Usage
 
 After the bot has joined your server, you can pm him !help or write it in a textchannel to get an overview of the available commands. At the moment, the following commands are supported:
-
 ```
 !connect [channel (optional)]
 ```
@@ -64,6 +63,7 @@ After the bot has joined your server, you can pm him !help or write it in a text
     - Keywords for a search(lofi hip-hop) - the bot plays the first result
     - A link to a playlist - the bot plays the songs in order
  * If the player is already playing, the command adds the song to a queue and plays them in succession
+ 
 ```
 !spotify [nickname (optional)]
 ```
