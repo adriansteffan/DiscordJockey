@@ -14,9 +14,9 @@ To learn more about the features of DiscordJockey, type !help in your serverchat
 
 2. Hosting the bot yourself
 
-For windows:
 
-You need to have python3 installed and added to your PATH variable.
+
+You need to have python3 installed (and added to your PATH variable if you are on Windows)
 
 
 
