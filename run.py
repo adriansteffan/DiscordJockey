@@ -5,18 +5,6 @@ from config.config import *
 from musicbot.audiocontroller import AudioController
 from musicbot.utils import guild_to_audiocontroller
 
-"""
-Backlog:
-
-documentation:
-    readme
-    help
-
-maybe:
-    logging
-    hide ffmpeg
-
-"""
 
 initial_extensions = ['musicbot.commands.music', 'musicbot.commands.general']
 bot = commands.Bot(command_prefix="!", pm_help=True)
@@ -31,7 +19,7 @@ if __name__ == '__main__':
 
 @bot.event
 async def on_ready():
-    print('Starting the bot...')
+    print(STARTUP_MESSAGE)
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name=" Music, type !help "))
 
     for guild in bot.guilds:
@@ -42,7 +30,7 @@ async def on_ready():
         except:
             pass
         guild_to_audiocontroller[guild] = AudioController(bot, guild, DEFAULT_VOLUME)
-    print('Startup complete!')
+    print(STARTUP_COMPLETE_MESSAGE)
 
 
 @bot.event

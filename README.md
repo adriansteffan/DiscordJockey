@@ -13,7 +13,7 @@ If you want to run the bot on your local machine or a server, see the instructio
 
 ### Prerequisites
 
-You need to have a version of python3 installed on your machine.
+You need to have a version of python 3.5+ installed on your machine.
 If you are windows, make sure that the executable is added to PATH. [How to do it on Windows 10](https://stackoverflow.com/questions/44272416/how-to-add-a-folder-to-path-environment-variable-in-windows-10-with-screensho)
 
 You also need the newest versions of aiohttp, youtube-dl and bs4, as well as the rewrite version of Discord.py. To install those, simply us ethe following pip command
@@ -29,11 +29,12 @@ apt-get install libffi-dev libnacl-dev python3-dev ffmpeg
 
 ### Installing - Hosting the bot yourself
 
-The setup is really straight forward, you just need to download this repository, copy it to wherever you like and run the startup.bat or startup.sh script, based on you OS. Alternatively, you can also run the run.py script with python via your console from the root directory of the project. 
+The setup is really straight forward. First, you need to create a new application [here](https://discordapp.com/developers/applications/me) and turn it into a Bot-User via the "Create a Bot User" button on the lower half of you app review. Next, you need to add the bot to your server. [Here is a simple explanation on how to do that.](https://github.com/jagrosh/MusicBot/wiki/Adding-Your-Bot-To-Your-Server) Now you need to reveal and copy the token of the bot.
 
-After you got the bot running, you need to create a new application [here](https://discordapp.com/developers/applications/me) and turn it into a Bot-User via the "Create a Bot User" button on the lower half of you app review. At last, you need to add the bot to your server. [Here is a simple explanation on how to do that.](https://github.com/jagrosh/MusicBot/wiki/Adding-Your-Bot-To-Your-Server) 
+At last, you need to download this repository, copy it to wherever you like, insert the token at the top of the "config/config.py" file (save it) and run the startup.bat or startup.sh script, based on you OS. Alternatively, you can also run the run.py script with python via your console from the root directory of the project. 
 
-The bot should join you server automatically. If nothing happens, just try restarting the python script and everything should work as intended ;-)
+
+The bot should join you server automatically.
 
 ## Usage
 
@@ -72,7 +73,7 @@ After the bot has joined your server, you can pm him !help or write it in a text
     - The title of a video (Rick Astley - Never Gonna Give You Up)
     - Keywords for a search(lofi hip-hop) - the bot plays the first result
     - A link to a playlist - the bot plays the songs in order
- * If the player is already playing, the command adds the song to a queue and plays them in succession
+* If the player is already playing, the command adds the song to a queue and plays them in succession
  
 ```
 !spotify [nickname (optional)]

@@ -1,9 +1,10 @@
 from collections import deque
 
-from config.config import *
+from config import config
 
 
 class Playlist:
+    """Stores the youtube links of songs to be played and already played and offers basic operation on the queues"""
 
     def __init__(self):
         # Stores the ytlinks os the songs in queue and the ones already played
@@ -18,7 +19,7 @@ class Playlist:
 
     def add_name(self, trackname):
         self.trackname_history.append(trackname)
-        if len(self.trackname_history) > MAX_TRACKNAME_HISTORY_LENGTH:
+        if len(self.trackname_history) > config.MAX_TRACKNAME_HISTORY_LENGTH:
                 self.trackname_history.popleft()
 
     def add(self, track):
@@ -28,7 +29,7 @@ class Playlist:
         song_played = self.playque.popleft()
         if song_played != "Dummy":
             self.playhistory.append(song_played)
-            if len(self.playhistory) > MAX_HISTORY_LENGTH:
+            if len(self.playhistory) > config.MAX_HISTORY_LENGTH:
                 self.playhistory.popleft()
         if len(self.playque) == 0:
             return None

@@ -1,19 +1,23 @@
 token: str = "NDQ0ODA4NjMyNzA2NjYyNDAw.DdhXTw.TgIgkWS6qsdeNSECFqsj1Zo8vCM"
 DEFAULT_NICKNAME = "{DiscordJockey}"
 
-NO_GUILD_MESSAGE = 'Warining: Please join a voice channel or enter the command in guild chat'
+STARTUP_MESSAGE = "Starting Bot..."
+STARTUP_COMPLETE_MESSAGE = "Startup Complete"
+
+NO_GUILD_MESSAGE = 'Error: Please join a voice channel or enter the command in guild chat'
 NOT_CONNECTED_MESSAGE = "Error: Bot not connected to any voice channel"
 CHANNEL_NOT_FOUND_MESSAGE = "Error: Could not find channel "
-
-ADD_MESSAGE_1 = "```To add this bot to your own Server, click the following link:```\n <https://discordapp.com/oauth2/authorize?client_id="
-ADD_MESSAGE_2 = "&scope=bot>"
-
+DEFAULT_CHANNEL_JOIN_FAILED = "Error: Could not join the default voice channel"
 INVALID_INVITE_MESSAGE = "Error: Invalid invitation link"
 
-INFO_HISTORY_TITLE = "Songs Played:"
+ADD_MESSAGE_1 = """```To add this bot to your own Server, click the following link:
+                ```\n<https://discordapp.com/oauth2/authorize?client_id="""
+ADD_MESSAGE_2 = "&scope=bot>"
+
 
 DEFAULT_VOLUME = 7
 
+INFO_HISTORY_TITLE = "Songs Played:"
 MAX_HISTORY_LENGTH = 10
 MAX_TRACKNAME_HISTORY_LENGTH = 15
 
