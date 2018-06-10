@@ -1,4 +1,4 @@
-token: str = "NDQ0ODA4NjMyNzA2NjYyNDAw.DdhXTw.TgIgkWS6qsdeNSECFqsj1Zo8vCM"
+token: str = "YOUR TOKEN HERE"
 DEFAULT_NICKNAME = "{DiscordJockey}"
 
 STARTUP_MESSAGE = "Starting Bot..."
