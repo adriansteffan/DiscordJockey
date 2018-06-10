@@ -121,10 +121,12 @@ class AudioController:
         html = response.read()
         soup = BeautifulSoup(html, "html.parser")
         results = soup.findAll(attrs={'class': 'yt-uix-tile-link'})
-        if len(results) != 0:
-            return 'https://www.youtube.com' + results[0]['href']
-        else:
-            return None
+        checked_videos = 0;
+        while len(results) > checked_videos:
+            if not "user" in results[checked_videos]['href']:
+                return 'https://www.youtube.com' + results[checked_videos]['href']
+            checked_videos += 1
+        return None
 
     async def play_youtube(self, youtube_link):
         """Downloads and plays the audio of the youtube link passed"""
