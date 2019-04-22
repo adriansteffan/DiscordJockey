@@ -4,10 +4,9 @@ DiscordJockey is an open source, lightweight musicbot for Discord. It was writte
 
 ## Getting Started
 
-I am offering a hosted version of the bot, you just need to go to the following link and add it to your server. Easy as that.
-https://discordapp.com/oauth2/authorize?client_id=444808632706662400&scope=bot
+(To learn more about the features of DiscordJockey, type !help in your serverchat or read the documentation below.)
 
-To learn more about the features of DiscordJockey, type !help in your serverchat or read the documentation below.
+I am no longer hosting this bot as I am working on an improved version with a whole lot more features.
 
 If you want to run the bot on your local machine or a server, see the instructions below.
 
