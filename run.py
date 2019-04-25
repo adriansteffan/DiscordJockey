@@ -14,7 +14,7 @@ if __name__ == '__main__':
         try:
             bot.load_extension(extension)
         except Exception as e:
-            pass
+            print(e)
 
 
 @bot.event
@@ -25,11 +25,12 @@ async def on_ready():
     for guild in bot.guilds:
         print(guild.name)
         await guild.me.edit(nick=DEFAULT_NICKNAME)
-        try:
-            await guild.voice_channels[0].connect()
-        except:
-            pass
         guild_to_audiocontroller[guild] = AudioController(bot, guild, DEFAULT_VOLUME)
+        try:
+            await guild_to_audiocontroller[guild].register_voice_channel(guild.voice_channels[0])
+        except:
+            print("could not join "+guild.name)
+        
     print(STARTUP_COMPLETE_MESSAGE)
 
 
@@ -38,9 +39,9 @@ async def on_guild_join(guild):
     print(guild.name)
     guild_to_audiocontroller[guild] = AudioController(bot, guild, DEFAULT_VOLUME)
     try:
-        await guild.voice_channels[0].connect()
+        await guild_to_audiocontroller[guild].register_voice_channel(guild.voice_channels[0])
     except:
-        pass
+        print("could not join "+guild.name)
 
 
 bot.run(token, bot=True, reconnect=True)

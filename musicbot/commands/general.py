@@ -5,7 +5,7 @@ from musicbot import utils
 from musicbot.audiocontroller import AudioController
 
 
-class General:
+class General(commands.Cog):
     """ A collection of the commands for moving the bot around in you server.
 
             Attributes:

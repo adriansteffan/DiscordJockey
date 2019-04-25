@@ -4,7 +4,7 @@ from musicbot import utils
 from config import config
 
 
-class Music:
+class Music(commands.Cog):
     """ A collection of the commands related to music playback.
 
         Attributes:
@@ -78,7 +78,7 @@ class Music:
             await utils.send_message(ctx, config.NO_GUILD_MESSAGE)
             return
 
-            utils.guild_to_audiocontroller[current_guild].volume = volume
+        utils.guild_to_audiocontroller[current_guild].volume = volume
 
     @commands.command(name='spotify', description = config.HELP_SPOTIFY_LONG, help = config.HELP_SPOTIFY_SHORT)
     async def _spotify(self, ctx,  *, nick_name=None):

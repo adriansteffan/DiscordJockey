@@ -29,7 +29,7 @@ def playing_string(title):
     return "[" + short_title.replace("(", "|") + "]"
 
 
-class AudioController:
+class AudioController(object):
     """ Controls the playback of audio and the sequential playing of the songs.
 
             Attributes:
@@ -46,6 +46,7 @@ class AudioController:
         self.playlist = Playlist()
         self.current_songinfo = None
         self.guild = guild
+        self.voice_client = None
 
     @property
     def volume(self):
@@ -55,9 +56,14 @@ class AudioController:
     def volume(self, value):
         self._volume = value
         try:
-            self.guild.voice_client.source.volume = float(value) / 100.0
-        except:
-            pass
+            self.voice_client.source.volume = float(value) / 100.0
+        except Exception as e:
+            print(e)
+        
+    async def register_voice_channel(self, channel):
+        self.voice_client = await channel.connect()
+            
+        
 
     def track_history(self):
         history_string = config.INFO_HISTORY_TITLE
@@ -144,6 +150,7 @@ class AudioController:
             except:
                 self.next_song(None)
 
+        
         # Update the songinfo to reflect the current song
         self.current_songinfo = Songinfo(extracted_info.get('uploader'), extracted_info.get('creator'),
                                          extracted_info.get('title'), extracted_info.get('duration'),
@@ -153,9 +160,10 @@ class AudioController:
         # Change the nickname to indicate, what song is currently playing
         await self.guild.me.edit(nick=playing_string(extracted_info.get('title')))
         self.playlist.add_name(extracted_info.get('title'))
-        self.guild.voice_client.play(discord.FFmpegPCMAudio(extracted_info['url']), after=lambda e: self.next_song(e))
-        self.guild.voice_client.source = discord.PCMVolumeTransformer(self.guild.voice_client.source)
-        self.guild.voice_client.source.volume = float(self.volume) / 100.0
+        
+        self.voice_client.play(discord.FFmpegPCMAudio(extracted_info['url']), after=lambda e: self.next_song(e))
+        self.voice_client.source = discord.PCMVolumeTransformer(self.guild.voice_client.source)
+        self.voice_client.source.volume = float(self.volume) / 100.0
 
     async def stop_player(self):
         """Stops the player and removes all songs from the queue"""
