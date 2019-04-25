@@ -7,6 +7,7 @@ DiscordJockey is an open source, lightweight musicbot for Discord. It was writte
 (To learn more about the features of DiscordJockey, type !help in your serverchat or read the documentation below.)
 
 I am no longer hosting this bot as I am working on an improved version with a whole lot more features.
+Also, some features could break by changes being made to the official repo of discord.py in the future, so be aware of that.
 
 If you want to run the bot on your local machine or a server, see the instructions below.
 
