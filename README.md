@@ -4,10 +4,9 @@ DiscordJockey is an open source, lightweight musicbot for Discord. It was writte
 
 ## Getting Started
 
-I am offering a hosted version of the bot, you just need to go to the following link and add it to your server. Easy as that.
-https://discordapp.com/oauth2/authorize?client_id=444808632706662400&scope=bot
+(To learn more about the features of DiscordJockey, type !help in your serverchat or read the documentation below.)
 
-To learn more about the features of DiscordJockey, type !help in your serverchat or read the documentation below.
+I am no longer hosting this bot as I am working on an improved version with a whole lot more features.
 
 If you want to run the bot on your local machine or a server, see the instructions below.
 
@@ -29,7 +28,7 @@ apt-get install libffi-dev libnacl-dev python3-dev ffmpeg
 
 ### Installing - Hosting the bot yourself
 
-The setup is really straight forward. First, you need to create a new application [here](https://discordapp.com/developers/applications/me) and turn it into a Bot-User via the "Create a Bot User" button on the lower half of you app review. Next, you need to add the bot to your server. [Here is a simple explanation on how to do that.](https://github.com/jagrosh/MusicBot/wiki/Adding-Your-Bot-To-Your-Server) Now you need to reveal and copy the token of the bot.
+The setup is really straight forward. First, you need to create a new application [here](https://discordapp.com/developers/applications/me) and turn it into a Bot-User via the "Add" button on the "Bot" menu. Next, you need to add the bot to your server. [Here is a simple explanation on how to do that.](https://github.com/jagrosh/MusicBot/wiki/Adding-Your-Bot-To-Your-Server) Now you need to reveal and copy the token of the bot.
 
 At last, you need to download this repository, copy it to wherever you like, insert the token at the top of the "config/config.py" file (save it) and run the startup.bat or startup.sh script, based on you OS. Alternatively, you can also run the run.py script with python via your console from the root directory of the project. 
 
