@@ -2,6 +2,8 @@
 
 DiscordJockey is an open source, lightweight musicbot for Discord. It was written in python using [Discord.py](https://discordpy.readthedocs.io/en/rewrite/). It can stream music from sites like youtube straight to your Discord voice channels and helps you create a more chill atmosphere while enjoying your favourite games.
 
+This bot is somewhat outdated and could therefore not function as intended. Fixing it is on my backlog, so do not worry :)
+
 ## Getting Started
 
 (To learn more about the features of DiscordJockey, type !help in your serverchat or read the documentation below.)
@@ -138,7 +140,7 @@ After the bot has joined your server, you can pm him !help or write it in a text
 
 ## Authors
 
-* **Adrian Steffan**
+* **Adrian Steffan** [adriansteffan](https://github.com/adriansteffan) [website](https://adriansteffan.com/)
 
 
 ## License
